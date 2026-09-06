@@ -5,10 +5,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from lists.forms import TodoForm, TodoListForm
 from lists.models import Todo, TodoList
 from prometheus_client import generate_latest
-from lists.metrics import http_requests_total
 
 def metrics(request):
-    http_requests_total.labels(method=request.method).inc()
     return HttpResponse(
         generate_latest(),
         content_type="text/plain; version=0.0.4; charset=utf-8",
